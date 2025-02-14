@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will You Be My Valentine</title>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: #e0e5ec; /* Light grayish background */
+            color: #6a6a6a; /* Dark gray text */
+        }
+
+        /* Neumorphism Effect for Content */
+        #content {
+            background: rgba(255, 255, 255, 0.2); /* Glassmorphism background */
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.1), -8px -8px 16px rgba(255, 255, 255, 0.1); /* Neumorphism effect */
+        }
+
+        /* Question */
+        #question {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 30px;
+            color: #6A4C93; /* Soft lavender color */
+        }
+
+        /* Neumorphic Buttons */
+        #yesButton,
+        #noButton {
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: 25px;
+            padding: 16px 32px;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin: 10px;
+            outline: none;
+            background: #e0e5ec; /* Neumorphic button background */
+            box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.1), -8px -8px 16px rgba(255, 255, 255, 0.1); /* Neumorphism shadow */
+        }
+
+        /* Yes Button Custom Color */
+        #yesButton {
+            background: linear-gradient(145deg, #A7D8FF, #6B9EFC); /* Soft blue gradient */
+            color: white;
+        }
+
+        /* No Button Custom Color */
+        #noButton {
+            background: linear-gradient(145deg, #FF9ED7, #FF6BB3); /* Soft pink gradient */
+            color: white;
+        }
+
+        /* Button Hover Effects */
+        #yesButton:hover,
+        #noButton:hover {
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
+            transform: scale(1.05);
+        }
+
+        /* Button Disabled Effect */
+        #noButton:disabled {
+            background-color: #f0f0f0;
+            color: #c2c2c2;
+            box-shadow: none;
+        }
+
+        /* Heart Animation */
+        .heart {
+            position: fixed;
+            bottom: -100px;
+            width: 50px;
+            height: 50px;
+            background-color: #FF6B81;
+            clip-path: polygon(50% 0%, 0% 38%, 50% 100%, 100% 38%);
+            animation: heartAnimate 4s ease-in-out infinite;
+        }
+
+        /* Heart Animation Keyframes */
+        @keyframes heartAnimate {
+            0% {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+
+            50% {
+                transform: translateY(-200px) scale(1.5);
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: translateY(0) scale(1);
+                opacity: 0;
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            #content {
+                padding: 20px;
+            }
+
+            #question {
+                font-size: 1.5rem;
+            }
+
+            #yesButton,
+            #noButton {
+                font-size: 16px;
+                padding: 12px 24px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="content">
+        <h2 id="question">CAN YOU BE MY VALENTINE?</h2>
+        <button id="yesButton">YES</button>
+        <button id="noButton">NO</button>
+        <p id="message"></p>
+    </div>
+
+    <script>
+        var noClickCount = 0;
+
+        document.getElementById('noButton').addEventListener('click', function() { //NOOOOO button
+            noClickCount++;
+            if (noClickCount == 1) {
+                document.getElementById('yesButton').style.fontSize = '30px';
+            } else if (noClickCount == 2) {
+                this.style.fontSize = '10px';
+                document.getElementById('yesButton').style.fontSize = '40px';
+            } else if (noClickCount == 3) {
+                document.getElementById('yesButton').style.fontSize = '90px';
+                this.style.fontSize = '7px';
+            } else if (noClickCount == 4) {
+                this.style.position = 'absolute';
+                this.style.left = Math.min(Math.random() * window.innerWidth, window.innerWidth - this.offsetWidth) + 'px';
+                this.style.top = Math.min(Math.random() * window.innerHeight, window.innerHeight - this.offsetHeight) + 'px';
+            } else if (noClickCount >= 5 && noClickCount < 10) {
+                this.style.position = 'absolute';
+                this.style.left = Math.min(Math.random() * window.innerWidth, window.innerWidth - this.offsetWidth) + 'px';
+                this.style.top = Math.min(Math.random() * window.innerHeight, window.innerHeight - this.offsetHeight) + 'px';
+            } else if (noClickCount >= 10 && noClickCount < 15) {
+                // Avoid disabling the button
+                // this.disabled = true;
+                this.style.position = 'absolute';
+                this.style.left = Math.min(Math.random() * window.innerWidth, window.innerWidth - this.offsetWidth) + 'px';
+                this.style.top = Math.min(Math.random() * window.innerHeight, window.innerHeight - this.offsetHeight) + 'px';
+                document.getElementById('message').innerText = 'Are you sure?';
+                document.getElementById('message').style.position = 'absolute';
+                document.getElementById('message').style.left = this.style.left;
+                document.getElementById('message').style.top = parseFloat(this.style.top) + 50 + 'px';
+            } else if (noClickCount == 15) {
+                document.getElementById('message').innerText = 'Oh No! You broke the button :c';
+                this.disabled = true;
+                this.style.color = 'grey';
+                document.getElementById('message').innerText = 'Oh No! You broke the button :c';
+            }
+        });
+
+        document.getElementById('yesButton').addEventListener('click', function() { //YESSSS button
+            document.getElementById('question').innerText = "YIEE HAHAWHHA BEKTIMA NAPUD KA JEN, BTW DON'T TAKE THIS SITE SERIOUSLY ACKKKK HAHAH ";
+            for (var i = 0; i < 100; i++) {
+                var heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.style.left = Math.random() * window.innerWidth + 'px';
+                heart.style.animationDuration = Math.random() * 2 + 3 + 's'; //between 3 and 5 secs
+                heart.style.animationDelay = Math.random() * 2 + 's'; // eto 0 and 2. di ko sure kung sure na
+                document.body.appendChild(heart);
+            }
+            document.getElementById('yesButton').style.display = 'none';
+            document.getElementById('noButton').style.display = 'none';
+        });
+    </script>
+</body>
+
+</html>
